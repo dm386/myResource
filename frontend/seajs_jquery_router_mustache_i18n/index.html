@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>-->
+    <title></title>
+    <link rel="stylesheet" href="./static/common/css/style.css">
+    <link rel="shortcut icon" href="./favicon.ico">
+    <script src="./modules/seajs/2.2.0/sea.js"></script>
+    <script>
+        var date = new Date();
+        console.log('index.html seconds=' + Math.floor(date.getTime()/1000) );
+        window.projectName={}; //发布版本号package.json里面设置
+
+        var seaConfig = {
+            alias: {
+                "config":'config.js',
+                "util":'util.js',
+                "jquery": "jquery/1.9.0/jquery.js",
+                "mustache":"mustache.js",
+                "lang": "lang.js",
+                "sdk": "sdk.js"
+            }
+        };
+        if(window.projectName.production){
+            seaConfig.map = [
+                [ /^(.*)(\.js)(.*)$/i, '$1.'+window.projectName.version+'.js' ]
+            ];
+        }
+
+        seajs.config(seaConfig);
+
+            seajs.use("./static/main", function (main) {
+                if (main) {
+                    main.load();
+                } else {
+                    console.log('main is null');
+                }
+            });
+
+
+
+
+
+    </script>
+</head>
+<body><div class="loading"><i></i><em>LOADING...</em></div></body>
+</html>
