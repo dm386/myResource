@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/extjs/6.0.0/classic/theme-classic/resources/theme-classic-all.css" rel="stylesheet" />
+    <script type="text/javascript" src="./ext-all.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function() {
+            //Ext.Msg.alert('dddddd','66666');
+
+            // The data store containing the list of states
+            var states = Ext.create('Ext.data.Store', {
+                fields: ['abbr', 'name'],
+                data : [
+                    {"abbr":"AL", "name":"Alabama"},
+                    {"abbr":"AK", "name":"Alaska"},
+                    {"abbr":"AZ", "name":"Arizona"}
+                ]
+            });
+
+
+            var window = new Ext.Window({
+                width:400,
+                height:200,
+                title:'window title',
+                html:'nice to meet you! <input type="text" id="options"> <button></button>',
+                items:[
+                    new Ext.form.TextField({fieldLabel:'hello',id:'hello'}),
+                    Ext.create('Ext.form.ComboBox', {
+                        fieldLabel: 'Choose State',
+                        id:'select',
+                        store: states,
+                        queryMode: 'local',
+                        displayField: 'name',
+                        valueField: 'abbr'
+                    })
+                ],
+                buttons:[
+                    {text:'提交',handler: function () {
+                        Ext.Msg.alert(Ext.ComponentManager.get('select').getValue())
+                    }}
+                ]
+
+            });
+
+            Ext.get('show').on('click',function () {
+                window.show();
+            });
+            Ext.get('hide').on('click',function () {
+                window.hide();
+            });
+
+
+
+        });
+    </script>
+</head>
+<body>
+<button id="show">show</button>
+<button id="hide">hide</button>
+</body>
+</html>
